@@ -19,3 +19,12 @@ def get_extension(url):
     filepath, filename = os.path.split(path)
     name, extension = os.path.splitext(filename)
     return extension
+
+if __name__ == '__main__':
+    from dotenv import load_dotenv
+    load_dotenv()
+    folderpath = os.getenv('FOLDERPATH', 'images')
+    
+    photo_url = 'https://upload.wikimedia.org/wikipedia/commons/3/3f/HST-SM4.jpeg'
+    filename = 'hubble.jpeg'
+    download_photo(folderpath, photo_url, filename)
