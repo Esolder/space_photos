@@ -6,7 +6,7 @@ load_dotenv()
 
 
 def download_nasa_photos(folderpath):
-    params = {'api_key': os.getenv('NASA_API_KEY', 'DEMO_KEY'), 'count': 30}
+    params = {'api_key': os.getenv('NASA_API_KEY'), 'count': 30}
 
     nasa_url = 'https://api.nasa.gov/planetary/apod'
     response = requests.get(nasa_url, params=params)
@@ -15,10 +15,3 @@ def download_nasa_photos(folderpath):
     for i, image in enumerate(response.json()):
         download_photo(folderpath, image['hdurl'],
                        f"nasa_{i}{get_extension(image['url'])}")
-
-if __name__ == '__main__':
-    import argparse
-    
-
-    folderpath = os.getenv('FOLDERPATH', 'images')
-    download_nasa_photos(folderpath)

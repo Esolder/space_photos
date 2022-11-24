@@ -1,5 +1,7 @@
 import requests
 from support_funcs import download_photo, get_extension
+from dotenv import load_dotenv
+load_dotenv()
 
 
 def fetch_spacex_launch(folderpath):
@@ -9,11 +11,3 @@ def fetch_spacex_launch(folderpath):
     images = response.json()['links']['flickr_images']
     for i, image in enumerate(images):
         download_photo(folderpath, image, f'spacex_{i}{get_extension(image)}')
-
-if __name__ == '__main__':
-    import os
-    from dotenv import load_dotenv
-    load_dotenv()
-    
-    folderpath = os.getenv('FOLDERPATH', 'images')
-    fetch_spacex_launch(folderpath)
