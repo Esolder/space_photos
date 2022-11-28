@@ -18,8 +18,5 @@ def download_nasa_photos(folderpath):
 
 
 if __name__ == '__main__':
-    
-
-
     folderpath = os.getenv('FOLDERPATH', 'images')
     download_nasa_photos(folderpath)
