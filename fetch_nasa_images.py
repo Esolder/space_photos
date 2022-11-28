@@ -16,9 +16,10 @@ def download_nasa_photos(folderpath):
         download_photo(folderpath, image['hdurl'],
                        f"nasa_{i}{get_extension(image['url'])}")
 
+
 if __name__ == '__main__':
-    import argparse
     
+
 
     folderpath = os.getenv('FOLDERPATH', 'images')
     download_nasa_photos(folderpath)
