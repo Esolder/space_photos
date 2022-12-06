@@ -13,9 +13,9 @@ def fetch_spacex_launch(folderpath, launch):
 if __name__ == '__main__':
     import os
     from dotenv import load_dotenv
-    load_dotenv()
-    
     import argparse
+
+    load_dotenv()
 
     folderpath = os.getenv('FOLDERPATH', 'images')
 
