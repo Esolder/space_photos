@@ -4,22 +4,23 @@ from dotenv import load_dotenv
 from random import shuffle
 import time
 
+
 def publish_in_telegram():
     load_dotenv()
 
     folderpath = os.getenv('FOLDERPATH')
-    delay_hours = int(os.getenv('DELAY_HOURS', 4))
+    delay_seconds = int(os.getenv('DELAY_SECONDS', 14400))
 
     bot = telegram.Bot(token=os.getenv('TELEGRAM_TOKEN'))
-    chat_id=os.getenv('TELEGRAM_CHAT_ID')
+    chat_id = os.getenv('TELEGRAM_CHAT_ID')
 
     while True:
-        photos = os.listdir(folderpath)
-        shuffle(photos)
-        for photo in photos:
-            bot.send_photo(photo=open(f'{folderpath}/{photo}', 'rb'),
-                           chat_id=chat_id)
-            time.sleep(delay_hours * 3600)
+        for root, dirs, files in os.walk(folderpath):
+            shuffle(files)
+            for file in files:
+                with open(os.path.join(folderpath, file), 'rb') as ph:
+                    bot.send_photo(photo=ph, chat_id=chat_id)
+                time.sleep(delay_seconds)
 
 
 if __name__ == '__main__':
