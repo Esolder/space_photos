@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 
 def download_nasa_photos(folderpath, count):
     nasa_url = 'https://api.nasa.gov/planetary/apod'
-    params = {'api_key': os.getenv('NASA_API_KEY', 'DEMO_KEY'),
+    params = {'api_key': nasa_api_key,
               'count': count if count else 10}
 
     response = requests.get(nasa_url, params=params)
@@ -32,4 +32,5 @@ if __name__ == '__main__':
 
     load_dotenv()
     folderpath = os.getenv('FOLDERPATH', 'images')
-    download_nasa_photos(folderpath, args.count)
+    nasa_api_key = os.getenv('NASA_API_KEY', 'DEMO_KEY')
+    download_nasa_photos(folderpath, args.count, nasa_api_key)
