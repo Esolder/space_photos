@@ -2,6 +2,7 @@ import urllib
 import os
 import pathlib
 import requests
+from urllib.parse import urljoin
 
 
 def download_photo(folderpath, photo_url, filename):
@@ -19,3 +20,9 @@ def get_extension(url):
     filepath, filename = os.path.split(path)
     name, extension = os.path.splitext(filename)
     return extension
+
+def get_response(base_url, path, params=None):
+    url = urljoin(base_url, path)
+    response = requests.get(url, params=params)
+    response.raise_for_status()
+    return response
