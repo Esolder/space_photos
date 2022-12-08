@@ -3,8 +3,6 @@ from datetime import datetime
 import os
 from support_funcs import download_photo, get_extension
 from dotenv import load_dotenv
-load_dotenv()
-
 
 
 def download_nasa_epic_photo(folderpath):
@@ -32,5 +30,6 @@ def download_nasa_epic_photo(folderpath):
                         f"nasa_epic{i}{get_extension(response.url)}")
 
 if __name__ == '__main__':
+    load_dotenv()
     folderpath = os.getenv('FOLDERPATH', 'images')
     download_nasa_epic_photo(folderpath)

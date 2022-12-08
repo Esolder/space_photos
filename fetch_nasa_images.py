@@ -5,8 +5,6 @@ import requests
 from support_funcs import download_photo, get_extension
 from dotenv import load_dotenv
 
-load_dotenv()
-
 
 def download_nasa_photos(folderpath, count):
     nasa_url = 'https://api.nasa.gov/planetary/apod'
@@ -32,5 +30,6 @@ if __name__ == '__main__':
                         help="количество фото для загрузки")
     args = parser.parse_args()
 
+    load_dotenv()
     folderpath = os.getenv('FOLDERPATH', 'images')
     download_nasa_photos(folderpath, args.count)
