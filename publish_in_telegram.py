@@ -8,11 +8,11 @@ import time
 def publish_in_telegram():
     load_dotenv()
 
-    folderpath = os.getenv('FOLDERPATH')
+    folderpath = os.environ('FOLDERPATH')
     delay_seconds = int(os.getenv('DELAY_SECONDS', 14400))
 
-    bot = telegram.Bot(token=os.getenv('TELEGRAM_TOKEN'))
-    chat_id = os.getenv('TELEGRAM_CHAT_ID')
+    bot = telegram.Bot(token=os.environ('TELEGRAM_TOKEN'))
+    chat_id = os.environ('TELEGRAM_CHAT_ID')
 
     while True:
         for root, dirs, files in os.walk(folderpath):
