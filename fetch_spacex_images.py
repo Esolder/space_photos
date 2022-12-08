@@ -21,8 +21,6 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(
         description='Загружает фото запуска nasa по указанному id')
-    parser.add_argument('--id', help='id запуска')
+    parser.add_argument('--id', help='id запуска', default='latest')
     launch = parser.parse_args().id
-    if not launch:
-        launch = 'latest'
     fetch_spacex_launch(folderpath, launch)
