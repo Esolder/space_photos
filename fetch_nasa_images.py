@@ -16,13 +16,14 @@ def download_nasa_photos(folderpath, count):
     response = requests.get(nasa_url, params=params)
     response.raise_for_status()
 
-    for i, image in enumerate(response.json()):
-        try:
-            image_url = image['hdurl']
-        except KeyError:
-            image_url = image['url']
-        download_photo(folderpath, image_url,
-                       f"nasa_{i}{get_extension(image_url)}")
+    for i, launch_info in enumerate(response.json()):
+        if launch_info['media_type'] == 'image':
+            try:
+                image_url = launch_info['hdurl']
+            except KeyError:
+                image_url = launch_info['url']
+            download_photo(folderpath, image_url,
+                        f"nasa_{i}{get_extension(image_url)}")
 
 
 if __name__ == '__main__':
