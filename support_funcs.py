@@ -21,8 +21,15 @@ def get_extension(url):
     name, extension = os.path.splitext(filename)
     return extension
 
+
 def get_response(base_url, path, params=None):
     url = urljoin(base_url, path)
     response = requests.get(url, params=params)
     response.raise_for_status()
     return response
+
+
+def get_files_paths(folderpath):
+    for root, dirs, files in os.walk(folderpath):
+        return [os.path.join(root, file) for file in files]
+        

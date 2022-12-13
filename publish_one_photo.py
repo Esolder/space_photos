@@ -4,17 +4,16 @@ import random
 
 import telegram
 
+from support_funcs import get_files_paths
 
-def publish_in_telegram(photo_name, folderpath, bot, chat_id):
+
+def publish_in_telegram(photo_name, folderpath, telegram_bot, chat_id):
     if photo_name is None:
-        photo_names = []
-        for root, dirs, files in os.walk(folderpath):
-            for name in files:
-                photo_names.append(os.path.join(root, name))
+        photo_names = get_files_paths(folderpath)
         photo_name = random.choice(photo_names)
 
     with open(photo_name, 'rb') as ph:
-        bot.send_photo(photo=ph, chat_id=chat_id)
+        telegram_bot.send_photo(photo=ph, chat_id=chat_id)
 
 
 if __name__ == '__main__':
