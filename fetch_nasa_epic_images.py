@@ -40,11 +40,10 @@ if __name__ == '__main__':
     load_dotenv()
 
     folderpath = os.getenv('FOLDERPATH', 'images')
-    nasa_api_key = os.getenv('NASA_API_KEY', 'DEMO_KEY')
     count_download_photo = int(os.getenv('COUNT_NASA_EPIC_PHOTOS', 5))
+    params = {'api_key': os.getenv('NASA_API_KEY', 'DEMO_KEY')}
 
     base_url = 'https://api.nasa.gov'
-    params = {'api_key': nasa_api_key}
 
     download_nasa_epic_photos(folderpath,
                               count_download_photo,

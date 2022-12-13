@@ -1,26 +1,31 @@
 import requests
-from support_funcs import download_photo, get_extension
+from support_funcs import download_photo, get_extension, get_response
 
 
-def fetch_spacex_launch(folderpath, launch):
-    spacex_url = f'https://api.spacexdata.com/v5/launches/{launch}'
-    response = requests.get(spacex_url)
-    response.raise_for_status()
+def fetch_spacex_launch(folderpath, launch, base_url):
+    path = f'/v5/launches/{launch}'
+    response = get_response(base_url, path)
     images = response.json()['links']['flickr']['original']
     for i, image in enumerate(images):
-        download_photo(folderpath, image, f'spacex_{i}{get_extension(image)}')
+        download_photo(folderpath,
+                       image,
+                       f'spacex_{i}{get_extension(image)}')
+
 
 if __name__ == '__main__':
     import os
     from dotenv import load_dotenv
     import argparse
 
-    load_dotenv()
-
-    folderpath = os.getenv('FOLDERPATH', 'images')
-
     parser = argparse.ArgumentParser(
         description='Загружает фото запуска nasa по указанному id')
     parser.add_argument('--id', help='id запуска', default='latest')
     launch = parser.parse_args().id
-    fetch_spacex_launch(folderpath, launch)
+
+    load_dotenv()
+
+    folderpath = os.getenv('FOLDERPATH', 'images')
+
+    base_url = 'https://api.spacexdata.com'
+
+    fetch_spacex_launch(folderpath, launch, base_url)
