@@ -1,17 +1,17 @@
 import urllib
 import os
-import pathlib
+from pathlib import Path
 import requests
 from urllib.parse import urljoin
 
 
 def download_photo(folderpath, photo_url, filename):
-    pathlib.Path(folderpath).mkdir(parents=True, exist_ok=True)
+    Path(folderpath).mkdir(parents=True, exist_ok=True)
 
     response = requests.get(photo_url)
     response.raise_for_status()
 
-    with open(f'{folderpath}/{filename}', 'wb') as file:
+    with open(Path(('folderpath'), ('filename')), 'wb') as file:
         file.write(response.content)
 
 
