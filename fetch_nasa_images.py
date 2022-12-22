@@ -25,12 +25,13 @@ def download_nasa_photos(folderpath, params):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("-c", "--count", type=int,
-                        help="количество фото для загрузки")
+                        help="количество фото для загрузки",
+                        default=10)
     args = parser.parse_args()
 
     load_dotenv()
     folderpath = os.getenv('FOLDERPATH', 'images')
     params = {'api_key': os.getenv('NASA_API_KEY', 'DEMO_KEY'),
-              'count': args.count if args.count else 10}
+              'count': args.count}
 
     download_nasa_photos(folderpath, params)
