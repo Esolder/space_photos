@@ -5,12 +5,12 @@ from dotenv import load_dotenv
 from urllib.parse import urljoin
 
 
-def download_nasa_epic_photos(folderpath, count_download_photos, params):
+def download_nasa_epic_photos(folderpath, count_photos, params):
     base_url = 'https://api.nasa.gov'
     last_date = get_last_photo_date(params, base_url)
     photo_info = get_photo_info(params, last_date, base_url)
     url_date = get_url_date(last_date)
-    for img_index, image in enumerate(photo_info[:count_download_photos]):
+    for img_index, image in enumerate(photo_info[:count_photos]):
         photo_url = f'/EPIC/archive/natural/{url_date}/png/{image["image"]}.png'
         response = get_response(base_url, photo_url, params=params)
         download_photo(folderpath,
@@ -40,9 +40,9 @@ if __name__ == '__main__':
     load_dotenv()
 
     folderpath = os.getenv('FOLDERPATH', 'images')
-    count_download_photos = int(os.getenv('COUNT_NASA_EPIC_PHOTOS', 5))
+    count_photos = int(os.getenv('COUNT_NASA_EPIC_PHOTOS', 5))
     params = {'api_key': os.getenv('NASA_API_KEY', 'DEMO_KEY')}
 
     download_nasa_epic_photos(folderpath,
-                              count_download_photos,
+                              count_photos,
                               params)
