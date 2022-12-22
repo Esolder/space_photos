@@ -6,7 +6,8 @@ from support_funcs import download_photo, get_extension, get_response
 from dotenv import load_dotenv
 
 
-def download_nasa_photos(folderpath, params, base_url):
+def download_nasa_photos(folderpath, params):
+    base_url = 'https://api.nasa.gov'
     path = '/planetary/apod'
 
     response = get_response(base_url, path, params)
@@ -31,7 +32,5 @@ if __name__ == '__main__':
     folderpath = os.getenv('FOLDERPATH', 'images')
     params = {'api_key': os.getenv('NASA_API_KEY', 'DEMO_KEY'),
               'count': args.count if args.count else 10}
-    
-    base_url = 'https://api.nasa.gov'
 
-    download_nasa_photos(folderpath, params, base_url)
+    download_nasa_photos(folderpath, params)

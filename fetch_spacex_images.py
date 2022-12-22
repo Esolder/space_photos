@@ -2,7 +2,8 @@ import requests
 from support_funcs import download_photo, get_extension, get_response
 
 
-def fetch_spacex_launch(folderpath, launch, base_url):
+def fetch_spacex_launch(folderpath, launch):
+    base_url = 'https://api.spacexdata.com'
     path = f'/v5/launches/{launch}'
     response = get_response(base_url, path)
     images = response.json()['links']['flickr']['original']
@@ -26,6 +27,4 @@ if __name__ == '__main__':
 
     folderpath = os.getenv('FOLDERPATH', 'images')
 
-    base_url = 'https://api.spacexdata.com'
-
-    fetch_spacex_launch(folderpath, launch, base_url)
+    fetch_spacex_launch(folderpath, launch)
