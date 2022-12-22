@@ -5,18 +5,17 @@ from dotenv import load_dotenv
 from urllib.parse import urljoin
 
 
-def download_nasa_epic_photos(folderpath, count_download_photo, params):
+def download_nasa_epic_photos(folderpath, count_download_photos, params):
     base_url = 'https://api.nasa.gov'
     last_date = get_last_photo_date(params, base_url)
-    photo_info = get_photo_info(params, last_date)
+    photo_info = get_photo_info(params, last_date, base_url)
     url_date = get_url_date(last_date)
-    for img_index, image in enumerate(photo_info):
-        if img_index < count_download_photo:
-            photo_url = f'/EPIC/archive/natural/{url_date}/png/{image["image"]}.png'
-            response = get_response(base_url, photo_url, params=params)
-            download_photo(folderpath,
-                           response.url,
-                           f"nasa_epic{img_index}{get_extension(response.url)}")
+    for img_index, image in enumerate(photo_info[:count_download_photos]):
+        photo_url = f'/EPIC/archive/natural/{url_date}/png/{image["image"]}.png'
+        response = get_response(base_url, photo_url, params=params)
+        download_photo(folderpath,
+                        response.url,
+                        f"nasa_epic{img_index}{get_extension(response.url)}")
 
 
 def get_last_photo_date(params, base_url):
@@ -26,7 +25,7 @@ def get_last_photo_date(params, base_url):
     return last_date
 
 
-def get_photo_info(params, date):
+def get_photo_info(params, date, base_url):
     photos_path = f'/EPIC/api/natural/date/{date}'
     response = get_response(base_url, photos_path, params=params)
     return response.json()
@@ -41,9 +40,9 @@ if __name__ == '__main__':
     load_dotenv()
 
     folderpath = os.getenv('FOLDERPATH', 'images')
-    count_download_photo = int(os.getenv('COUNT_NASA_EPIC_PHOTOS', 5))
+    count_download_photos = int(os.getenv('COUNT_NASA_EPIC_PHOTOS', 5))
     params = {'api_key': os.getenv('NASA_API_KEY', 'DEMO_KEY')}
 
     download_nasa_epic_photos(folderpath,
-                              count_download_photo,
+                              count_download_photos,
                               params)
