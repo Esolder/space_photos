@@ -10,13 +10,13 @@ def download_nasa_epic_photos(folderpath, count_download_photo, params):
     last_date = get_last_photo_date(params, base_url)
     photo_info = get_photo_info(params, last_date)
     url_date = get_url_date(last_date)
-    for i, image in enumerate(photo_info):
-        if i < count_download_photo:
+    for img_index, image in enumerate(photo_info):
+        if img_index < count_download_photo:
             photo_url = f'/EPIC/archive/natural/{url_date}/png/{image["image"]}.png'
             response = get_response(base_url, photo_url, params=params)
             download_photo(folderpath,
                            response.url,
-                           f"nasa_epic{i}{get_extension(response.url)}")
+                           f"nasa_epic{img_index}{get_extension(response.url)}")
 
 
 def get_last_photo_date(params, base_url):

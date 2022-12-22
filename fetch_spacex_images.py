@@ -7,10 +7,10 @@ def fetch_spacex_launch(folderpath, launch):
     path = f'/v5/launches/{launch}'
     response = get_response(base_url, path)
     images = response.json()['links']['flickr']['original']
-    for i, image in enumerate(images):
+    for img_index, image in enumerate(images):
         download_photo(folderpath,
                        image,
-                       f'spacex_{i}{get_extension(image)}')
+                       f'spacex_{img_index}{get_extension(image)}')
 
 
 if __name__ == '__main__':
