@@ -22,7 +22,7 @@ if __name__ == '__main__':
     parser.add_argument('--photo', help='Имя фотографии')
     args = parser.parse_args()
 
-    folderpath = os.environ['FOLDERPATH']
+    folderpath = os.getenv['FOLDERPATH', 'images']
     bot = telegram.Bot(token=os.environ['TELEGRAM_TOKEN'])
     chat_id = os.environ['TELEGRAM_CHAT_ID']
 
