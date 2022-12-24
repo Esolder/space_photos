@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 from random import shuffle
 import time
+from urllib3.exceptions import HTTPError
 
 import telegram
 
@@ -17,7 +18,7 @@ def publish_in_telegram(folderpath, delay_seconds, telegram_bot, chat_id):
                 try:
                     telegram_bot.send_photo(photo=ph, chat_id=chat_id)
                     connection_error = False
-                except ConnectionError:
+                except (telegram.error.TimedOut, telegram.error.NetworkError):
                     if not connection_error:
                         connection_error = True
                         continue
