@@ -31,8 +31,8 @@ def publish_in_telegram(folderpath, delay_seconds, telegram_bot, chat_id):
 if __name__ == '__main__':
     load_dotenv()
 
-    folderpath = os.getenv['FOLDERPATH', 'images']
-    delay_seconds = int(os.getenv('DELAY_SECONDS', 14400))
+    folderpath = os.getenv('FOLDERPATH', 'images')
+    delay_seconds = int(os.getenv('DELAY_SECONDS', '14400'))
     telegram_bot = telegram.Bot(token=os.environ['TELEGRAM_TOKEN'])
     chat_id = os.environ['TELEGRAM_CHAT_ID']
 
