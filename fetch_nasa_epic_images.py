@@ -2,7 +2,6 @@ from datetime import datetime
 import os
 from support_funcs import download_photo, get_extension, get_response
 from dotenv import load_dotenv
-from urllib.parse import urljoin
 
 
 def download_nasa_epic_photos(folderpath, count_photos, params):

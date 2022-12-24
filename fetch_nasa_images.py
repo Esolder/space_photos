@@ -1,6 +1,5 @@
 import argparse
 import os
-import requests
 
 from support_funcs import download_photo, get_extension, get_response
 from dotenv import load_dotenv
