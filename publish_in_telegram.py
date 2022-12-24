@@ -2,7 +2,6 @@ import os
 from dotenv import load_dotenv
 from random import shuffle
 import time
-from urllib3.exceptions import HTTPError
 
 import telegram
 
