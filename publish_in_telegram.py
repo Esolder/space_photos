@@ -9,6 +9,7 @@ from support_funcs import get_files_paths
 
 
 def publish_in_telegram(folderpath, delay_seconds, telegram_bot, chat_id):
+    connection_error = False
     while True:
         filepaths = get_files_paths(folderpath)
         shuffle(filepaths)
@@ -16,7 +17,6 @@ def publish_in_telegram(folderpath, delay_seconds, telegram_bot, chat_id):
             with open(filepath, 'rb') as ph:
                 try:
                     telegram_bot.send_photo(photo=ph, chat_id=chat_id)
-                    connection_error = False
                 except (telegram.error.TimedOut, telegram.error.NetworkError):
                     if not connection_error:
                         connection_error = True
